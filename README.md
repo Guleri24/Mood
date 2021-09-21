@@ -85,4 +85,6 @@ The changes can be observed after the terminal reloads or if you run a new sessi
 
 Now we can use the command that we created. Yay !!!
 
+    mood enable updates
+
     
