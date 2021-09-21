@@ -1,28 +1,23 @@
-""" Mood
+# #!/usr/bin/env python
 
-Usage:
-  mood.py -m <mood>
-  mood.py -a <add mood>
-  mood.py -d <remove mood>
-"""
 import os
 import argparse
 
 # Enter your moods and commands
-#firefox = "firefox"
-#codeforces = 
-#spotify = 
-#idea =
-google = "firefox www.google.com"
+browser = "firefox "
 
-# Methods
+
+google = browser + "www.google.com/"
+
+# Moods
 def hello(args):
 	print('Use -h for help, {0}!'.format(args.name))
 
 def mood(args):
-#	if {1}  == 'google':
-		print(google)
+	if args.mood == 'google':
 		os.system(google)
+	else:
+		os.system(browser + args.mood)
 
 def add(args):
 	os.system("nano mood.py")
@@ -30,13 +25,12 @@ def add(args):
 def delete(args):
 	os.system("nano mood.py")
 
+def usage():
+	print("ggs")
+
 # Initalize parser
 parser = argparse.ArgumentParser()
 subparsers= parser.add_subparsers()
-
-hello_parser = subparsers.add_parser('hello')
-hello_parser.add_argument('name')
-hello_parser.set_defaults(func=hello)
 
 mood_parser = subparsers.add_parser('mood')
 mood_parser.add_argument('mood')
@@ -45,4 +39,8 @@ mood_parser.set_defaults(func=mood)
 
 if __name__ == '__main__':
 	args = parser.parse_args()
-	args.func(args)
+	try:
+		args.func(args)
+	except AttributeError:
+		usage()
+		parser.exit()
