@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+
+import os
+import argparse
+
+
+# System info
+brightness = "echo Brightness && light "
+battery_level = " && echo Charge && cat /sys/class/power_supply/BAT1/capacity"
+date_and_time = " && date "
+# background = " && feh --bg-fill ~/Pictures/Wallpapers/50-shades-of-purple.png"
+system = brightness + battery_level + date_and_time # + background
+gg = "XDG_SESSION_TYPE=wayland startplasma-wayland"
+
+# make sure to add space after browser and webistes command)
+# Browser
+browser = "exec firefox "
+
+# Coding
+coding = "exec ~/Applications/idea-IU-213.5744.223/bin/idea.sh"
+
+# Websites
+eclipse_foundation = "https://blogs.eclipse.org/ "
+easter_egg = "https://youtu.be/DGa6MAibjzA "
+instagram = "https://www.instagram.com/ "
+java_magazine = "https://blogs.oracle.com/javamagazine/ "
+linkedin = "https://www.linkedin.com/feed/ "
+phoronix = "https://www.phoronix.com/scan.php?page=home "
+
+# Music
+music = "mpv --no-video --playlist=Music"
+
+#Videos
+days = "~/Pictures/Wallpapers/DAYS_TV_Unstoppable_720p.mp4"
+
+def add(args):
+    os.system("vim mood")
+
+
+def delete(args):
+    os.system("vim mood")
+
+
+# Make sure to add new moods
+def updates():
+    print("Available moods:")
+    print("updates, social, coding, music \n")
+    print("Example: ./mood enable updates")
+
+
+def about():
+    print("""
+                        _
+  /\/\   ___   ___   __| |
+ /    \ / _ \ / _ \ / _` |
+/ /\/\ \ (_) | (_) | (_| |
+\/    \/\___/ \___/ \__,_|
+Minimalistic user mood generator and executor
+
+KDE Wayland - XDG_SESSION_TYPE=wayland startplasma-wayland
+KDE X - startx
+SwayWM - sway
+    """)
+
+
+# Add you moods here
+def mood(args):
+    if args.mood == 'updates':
+        updates = browser + java_magazine + phoronix + eclipse_foundation
+        os.system(updates)
+
+    elif args.mood == 'social':
+        social = browser + instagram + linkedin
+        os.system(social)
+    
+    elif args.mood == 'system':
+        os.system(system)
+
+    elif args.mood == 'coding':
+        os.system(coding)
+
+    elif args.mood == 'motivation':
+        os.system("mpv -fs " + days)
+
+    elif args.mood == 'music':
+        os.system(music)
+
+    elif args.mood == 'gg':
+        os.system(gg)
+
+    else:
+        os.system(browser + easter_egg)
+
+
+# Initialize parser
+parser = argparse.ArgumentParser()
+subparsers = parser.add_subparsers()
+
+mood_parser = subparsers.add_parser('enable', help="enter desired mood")
+mood_parser.add_argument('mood')
+mood_parser.set_defaults(func=mood)
+
+add_mood = subparsers.add_parser('add', help="add new mood")
+add_mood.set_defaults(func=add)
+
+delete_mood = subparsers.add_parser('delete', help="delete mood")
+delete_mood.set_defaults(func=delete)
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    try:
+        args.func(args)
+    except AttributeError:
+        about()
+        updates()
+        print("no argument passed, use -h for help")
+        parser.exit()
