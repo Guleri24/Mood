@@ -10,6 +10,6 @@ char * input() {
   char * line = NULL;
   size_t len = 0;
   ssize_t lineSize = 0;
-  lineSize = getline( & line, & len, stdin);
+  getline( & line, & len, stdin);
   return line;
 }
