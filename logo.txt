@@ -1,0 +1,7 @@
+
+                        _
+  /\/\   ___   ___   __| |
+ /    \ / _ \ / _ \ / _` |
+/ /\/\ \ (_) | (_) | (_| |
+\/    \/\___/ \___/ \__,_|
+Minimalistic user mood generator and executor
